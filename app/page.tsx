@@ -160,7 +160,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-black via-zinc-900 to-zinc-950 text-white p-4 sm:p-6 lg:p-10">
       {/* Navbar */}
-      <nav className="flex justify-between items-center p-6 border-b border-zinc-800">
+      <nav className="flex flex-col lg:flex-row gap-6 lg:items-center lg:justify-between p-6 border-b border-zinc-800">
        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold">
           Qolox
         </h1>
@@ -170,10 +170,10 @@ export default function Home() {
           placeholder="Search products..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="bg-zinc-800/80 border border-zinc-700 rounded-xl px-4 py-2 outline-none focus:border-blue-500 w-64"
+        className="bg-zinc-800/80 border border-zinc-700 rounded-xl px-4 py-2 outline-none focus:border-blue-500 w-full lg:w-64"
         />
 
-        <div className="flex gap-3 items-center">
+       <div className="flex flex-col sm:flex-row gap-3 items-center w-full lg:w-auto">
           <input
             type="email"
             placeholder="Email"
