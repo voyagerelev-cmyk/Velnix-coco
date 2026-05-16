@@ -158,11 +158,11 @@ export default function Home() {
 };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-black via-zinc-900 to-zinc-950 text-white">
+    <main className="min-h-screen bg-gradient-to-b from-black via-zinc-900 to-zinc-950 text-white p-4 sm:p-6 lg:p-10">
       {/* Navbar */}
       <nav className="flex justify-between items-center p-6 border-b border-zinc-800">
-        <h1 className="text-3xl font-bold">
-          Voyager Market
+       <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold">
+          Qolox
         </h1>
 
         <input
@@ -294,7 +294,7 @@ export default function Home() {
           Trending Products
         </h3>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {products
             .filter((product) =>
               product.name
@@ -312,8 +312,8 @@ export default function Home() {
                     "https://via.placeholder.com/300"
                   }
                   alt={product.name}
-                  className="h-40 w-full object-cover rounded-xl mb-4"
-                />
+                 className="w-full h-56 object-cover rounded-2xl mb-4"
+                 />
 
                 <h4 className="text-xl font-semibold">
                   {product.name}
@@ -327,6 +327,7 @@ export default function Home() {
                   {product.description}
                 </p>
 
+      
                 <p className="text-zinc-400 mt-2">
                   {product.price}
                 </p>
