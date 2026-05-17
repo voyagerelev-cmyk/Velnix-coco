@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Qoxol",
+  title: "Qolox",
   description: "Modern marketplace+messaging platform",
 };
 
