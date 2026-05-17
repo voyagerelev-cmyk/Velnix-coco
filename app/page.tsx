@@ -38,24 +38,8 @@ export default function Home() {
       console.log(error.message);
     }
   };
-
- const addProduct = async () => {
-  if (editingId) {
-    const { error } = await supabase
-      .from("products")
-      .update({
-        name,
-        price,
-        seller,
-        description,
-      })
-      .eq("id", editingId);
-
-    if (error) {
-      alert(error.message);
-      return;
-    }
- const addToFavorites = async (productId: number) => {
+  
+const addToFavorites = async (productId: number) => {
   if (!currentUser) {
     alert("Please login first");
     return;
@@ -77,6 +61,27 @@ export default function Home() {
 
   alert("Added to favorites!");
 };
+ const addProduct = async () => {
+  
+  if (editingId) {
+    const { error } = await supabase
+      .from("products")
+      .update({
+        name,
+        price,
+        seller,
+        description,
+      })
+      .eq("id", editingId);
+
+    if (error) {
+      alert(error.message);
+      return;
+
+    };
+ 
+
+ 
 
     setEditingId(null);
 
@@ -404,12 +409,13 @@ const categories = [
                   {product.name}
                 </h4>
 
-                <p className="text-zinc-400 text-sm mt-1">
-                  Seller: {product.seller}
-                  <p className="text-blue-400 text-sm mt-1">
-  {product.category}
-</p>
-                </p>
+              <div className="text-zinc-400 text-sm mt-1">
+  <p>Seller: {product.seller}</p>
+
+  <p className="text-blue-400 text-sm mt-1">
+    {product.category}
+  </p>
+</div>
 
                 <p className="text-zinc-500 mt-2 text-sm">
                   {product.description}
@@ -420,11 +426,18 @@ const categories = [
                   {product.price}
                 </p>
 
-               <Link href={`/product/${product.id}`}>
+              <Link href={`/product/${product.id}`}>
   <button className="mt-4 w-full bg-blue-500 py-2 rounded-xl hover:bg-blue-600">
     View Product
   </button>
 </Link>
+
+<button
+  onClick={() => addToFavorites(product.id)}
+  className="mt-2 w-full bg-pink-500 py-2 rounded-xl hover:bg-pink-600"
+>
+  Add to Favorites
+</button>
 
 {currentUser &&
   currentUser.id === product.user_id && (
@@ -443,27 +456,28 @@ const categories = [
     </button>
 )}
 
-                {currentUser &&
-                  currentUser.id === product.user_id && (
-                    <button
-                      onClick={async () => {
-                        const { error } = await supabase
-                          .from("products")
-                          .delete()
-                          .eq("id", product.id);
+{currentUser &&
+  currentUser.id === product.user_id && (
+    <button
+      onClick={async () => {
+        const { error } = await supabase
+          .from("products")
+          .delete()
+          .eq("id", product.id);
 
-                        if (error) {
-                          alert(error.message);
-                          return;
-                        }
+        if (error) {
+          alert(error.message);
+          return;
+        }
 
-                        fetchProducts();
-                      }}
-                      className="mt-2 w-full bg-red-500 py-2 rounded-xl hover:bg-red-600"
-                    >
-                      Delete
-                    </button>
-                  )}
+        fetchProducts();
+      }}
+      className="mt-2 w-full bg-red-500 py-2 rounded-xl hover:bg-red-600"
+    >
+      Delete
+    </button>
+)}
+                
               </div>
             ))}
         </div>
