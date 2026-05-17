@@ -53,8 +53,8 @@ export default function MessagesPage() {
   };
 }, []);
   return (
-    <main className="min-h-screen bg-black text-white p-10">
-      <h1 className="text-5xl font-bold mb-10">
+    <main className="min-h-screen bg-gradient-to-b from-black via-zinc-900 to-zinc-950 text-white p-4 sm:p-6 lg:p-10">
+      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-10">
         Messages
       </h1>
 
@@ -62,11 +62,11 @@ export default function MessagesPage() {
         {messages.map((msg) => (
           <div
             key={msg.id}
-            className="bg-zinc-900 border border-zinc-700 rounded-2xl p-6"
+            className="bg-zinc-800/80 backdrop-blur-md border border-zinc-700 rounded-3xl p-6 hover:border-blue-500 transition"
           >
             <p className="text-zinc-400 text-sm mb-2">
-              Product ID: {msg.product_id}
-            </p>
+  From: {msg.sender_id === currentUser?.id ? "You" : "Buyer"}
+</p>
 
             <p className="text-lg">
               {msg.message}

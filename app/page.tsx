@@ -9,11 +9,13 @@ export default function Home() {
   const [password, setPassword] = useState("");
 
   const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [seller, setSeller] = useState("");
   const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
 
   const [currentUser, setCurrentUser] = useState<any>(null);
 
@@ -53,6 +55,28 @@ export default function Home() {
       alert(error.message);
       return;
     }
+ const addToFavorites = async (productId: number) => {
+  if (!currentUser) {
+    alert("Please login first");
+    return;
+  }
+
+  const { error } = await supabase
+    .from("favorites")
+    .insert([
+      {
+        user_id: currentUser.id,
+        product_id: productId,
+      },
+    ]);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  alert("Added to favorites!");
+};
 
     setEditingId(null);
 
@@ -97,6 +121,7 @@ export default function Home() {
         name,
         price,
         seller,
+        category,
         description,
         image: imageUrl,
         user_id: user?.id,
@@ -156,6 +181,13 @@ export default function Home() {
 
   alert("Logged out!");
 };
+const categories = [
+  "All",
+  "Electronics",
+  "Fashion",
+  "Gaming",
+  "Books",
+];
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-black via-zinc-900 to-zinc-950 text-white p-4 sm:p-6 lg:p-10">
@@ -168,6 +200,7 @@ export default function Home() {
       Qolox
     </h1>
 
+{!currentUser && (
     <div className="flex flex-col sm:flex-row gap-3 items-center w-full lg:w-auto">
       <input
         type="email"
@@ -176,6 +209,7 @@ export default function Home() {
         onChange={(e) => setEmail(e.target.value)}
         className="bg-zinc-800 px-3 py-2 rounded-xl outline-none w-full sm:w-auto"
       />
+      
 
       <input
         type="password"
@@ -199,6 +233,7 @@ export default function Home() {
         Sign Up
       </button>
     </div>
+)}
 
     <div className="flex items-center gap-3">
       <p className="text-zinc-400 break-all">
@@ -241,6 +276,7 @@ export default function Home() {
 
       {/* Upload Product */}
       <section className="px-4 sm:px-6 lg:px-10 mb-16">
+        {currentUser ? (
         <div className="bg-zinc-800/80 border border-zinc-700 rounded-2xl p-8 max-w-2xl mx-auto">
           <h3 className="text-3xl font-bold mb-6">
             Upload Product
@@ -270,6 +306,17 @@ export default function Home() {
               onChange={(e) => setSeller(e.target.value)}
               className="bg-zinc-900 p-3 rounded-xl outline-none border border-zinc-700"
             />
+            <select
+  value={category}
+  onChange={(e) => setCategory(e.target.value)}
+  className="bg-zinc-900 p-3 rounded-xl outline-none border border-zinc-700"
+>
+  <option value="">Select Category</option>
+  <option value="Electronics">Electronics</option>
+  <option value="Fashion">Fashion</option>
+  <option value="Gaming">Gaming</option>
+  <option value="Books">Books</option>
+</select>
 
             <input
               type="file"
@@ -292,6 +339,17 @@ export default function Home() {
             </button>
           </div>
         </div>
+        ) : (
+  <div className="bg-zinc-800/80 border border-zinc-700 rounded-2xl p-8 max-w-2xl mx-auto text-center">
+    <h3 className="text-3xl font-bold mb-4">
+      Login Required
+    </h3>
+
+    <p className="text-zinc-400">
+      Please login to upload products.
+    </p>
+  </div>
+)}
       </section>
 
       {/* Products */}
@@ -299,14 +357,35 @@ export default function Home() {
         <h3 className="text-3xl font-semibold mb-8">
           Trending Products
         </h3>
+        <div className="flex flex-wrap gap-3 mb-8">
+  {categories.map((cat) => (
+    <button
+      key={cat}
+      onClick={() => setSelectedCategory(cat)}
+      className={`px-4 py-2 rounded-xl border transition ${
+        selectedCategory === cat
+          ? "bg-blue-500 border-blue-500"
+          : "bg-zinc-800 border-zinc-700 hover:border-blue-500"
+      }`}
+    >
+      {cat}
+    </button>
+  ))}
+</div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {products
-            .filter((product) =>
-              product.name
-                .toLowerCase()
-                .includes(search.toLowerCase())
-            )
+            .filter((product) => {
+  const matchesSearch = product.name
+    .toLowerCase()
+    .includes(search.toLowerCase());
+
+  const matchesCategory =
+    selectedCategory === "All" ||
+    product.category === selectedCategory;
+
+  return matchesSearch && matchesCategory;
+})
             .map((product) => (
               <div
                 key={product.id}
@@ -327,6 +406,9 @@ export default function Home() {
 
                 <p className="text-zinc-400 text-sm mt-1">
                   Seller: {product.seller}
+                  <p className="text-blue-400 text-sm mt-1">
+  {product.category}
+</p>
                 </p>
 
                 <p className="text-zinc-500 mt-2 text-sm">
@@ -338,24 +420,28 @@ export default function Home() {
                   {product.price}
                 </p>
 
-                <Link href={`/product/${product.id}`}>
-                  <button className="mt-4 w-full bg-blue-500 py-2 rounded-xl hover:bg-blue-600">
-                    View Product
-                  </button>
-                 <button
-  onClick={() => {
-    setEditingId(product.id);
+               <Link href={`/product/${product.id}`}>
+  <button className="mt-4 w-full bg-blue-500 py-2 rounded-xl hover:bg-blue-600">
+    View Product
+  </button>
+</Link>
 
-    setName(product.name);
-    setPrice(product.price);
-    setSeller(product.seller);
-    setDescription(product.description);
-  }}
-  className="mt-2 w-full bg-yellow-500 py-2 rounded-xl hover:bg-yellow-600"
->
-  Edit
-</button>
-                </Link>
+{currentUser &&
+  currentUser.id === product.user_id && (
+    <button
+      onClick={() => {
+        setEditingId(product.id);
+
+        setName(product.name);
+        setPrice(product.price);
+        setSeller(product.seller);
+        setDescription(product.description);
+      }}
+      className="mt-2 w-full bg-yellow-500 py-2 rounded-xl hover:bg-yellow-600"
+    >
+      Edit
+    </button>
+)}
 
                 {currentUser &&
                   currentUser.id === product.user_id && (

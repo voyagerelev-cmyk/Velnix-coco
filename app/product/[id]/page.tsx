@@ -79,16 +79,16 @@ const [currentUser, setCurrentUser] = useState<any>(null);
 };
 
   return (
-    <main className="min-h-screen bg-black text-white p-10">
-      <div className="max-w-4xl mx-auto bg-zinc-900 p-8 rounded-3xl">
+    <main className="min-h-screen bg-gradient-to-b from-black via-zinc-900 to-zinc-950 text-white p-4 sm:p-6 lg:p-10">
+     <div className="max-w-5xl mx-auto bg-zinc-900/80 backdrop-blur-md border border-zinc-800 p-4 sm:p-6 lg:p-8 rounded-3xl">
 
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-96 object-cover rounded-2xl mb-8"
+          className="w-full h-64 sm:h-80 lg:h-[500px] object-cover rounded-3xl mb-8"
         />
 
-        <h1 className="text-5xl font-bold mb-4">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
           {product.name}
         </h1>
 
@@ -99,6 +99,9 @@ const [currentUser, setCurrentUser] = useState<any>(null);
         <p className="text-2xl text-blue-400 mb-6">
           {product.price}
         </p>
+        <div className="inline-block bg-blue-500/20 text-blue-400 px-4 py-2 rounded-full text-sm mb-6 border border-blue-500/30">
+  {product.category}
+</div>
 
         <p className="text-zinc-300">
           {product.description}
@@ -112,7 +115,7 @@ const [currentUser, setCurrentUser] = useState<any>(null);
     placeholder="Write your message..."
     value={message}
     onChange={(e) => setMessage(e.target.value)}
-    className="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-4 outline-none"
+    className="w-full bg-zinc-800/80 border border-zinc-700 rounded-2xl p-4 outline-none focus:border-blue-500 min-h-[140px]"
   />
 
   <button
