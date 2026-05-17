@@ -160,113 +160,72 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-black via-zinc-900 to-zinc-950 text-white p-4 sm:p-6 lg:p-10">
       {/* Navbar */}
-      <nav className="p-6 border-b border-zinc-800 space-y-4">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4"></div>
-       <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold">
-          Qolox
-        </h1>
-        <div className="flex flex-col sm:flex-row gap-3 items-center w-full lg:w-auto">
-  <input
-    type="email"
-    placeholder="Email"
-    value={email}
-    onChange={(e) => setEmail(e.target.value)}
-    className="bg-zinc-800 px-3 py-2 rounded-xl outline-none w-full sm:w-auto"
-  />
+     <nav className="p-6 border-b border-zinc-800 space-y-4">
+
+  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+
+    <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold">
+      Qolox
+    </h1>
+
+    <div className="flex flex-col sm:flex-row gap-3 items-center w-full lg:w-auto">
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="bg-zinc-800 px-3 py-2 rounded-xl outline-none w-full sm:w-auto"
+      />
+
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="bg-zinc-800 px-3 py-2 rounded-xl outline-none w-full sm:w-auto"
+      />
+
+      <button
+        onClick={login}
+        className="bg-zinc-700 px-4 py-2 rounded-xl hover:bg-zinc-600 w-full sm:w-auto"
+      >
+        Login
+      </button>
+
+      <button
+        onClick={signUp}
+        className="bg-blue-500 px-4 py-2 rounded-xl hover:bg-blue-600 w-full sm:w-auto"
+      >
+        Sign Up
+      </button>
+    </div>
+
+    <div className="flex items-center gap-3">
+      <p className="text-zinc-400 break-all">
+        {currentUser?.email}
+      </p>
+
+      {currentUser && (
+        <button
+          onClick={logout}
+          className="bg-red-500 px-4 py-2 rounded-xl hover:bg-red-600"
+        >
+          Logout
+        </button>
+      )}
+    </div>
+
+  </div>
 
   <input
-    type="password"
-    placeholder="Password"
-    value={password}
-    onChange={(e) => setPassword(e.target.value)}
-    className="bg-zinc-800 px-3 py-2 rounded-xl outline-none w-full sm:w-auto"
+    type="text"
+    placeholder="Search products..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    className="bg-zinc-800/80 border border-zinc-700 rounded-xl px-4 py-2 outline-none focus:border-blue-500 w-full"
   />
 
-  <button
-    onClick={login}
-    className="bg-zinc-700 px-4 py-2 rounded-xl hover:bg-zinc-600 w-full sm:w-auto"
-  >
-    Login
-  </button>
-
-  <button
-    onClick={signUp}
-    className="bg-blue-500 px-4 py-2 rounded-xl hover:bg-blue-600 w-full sm:w-auto"
-  >
-    Sign Up
-  </button>
-</div>
-
-<div className="flex items-center gap-3">
-  <p className="text-zinc-400 break-all">
-    {currentUser?.email}
-  </p>
-
-  {currentUser && (
-    <button
-      onClick={logout}
-      className="bg-red-500 px-4 py-2 rounded-xl hover:bg-red-600"
-    >
-      Logout
-    </button>
-  )}
-</div>
-
-        <input
-          type="text"
-          placeholder="Search products..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        className="bg-zinc-800/80 border border-zinc-700 rounded-xl px-4 py-2 outline-none focus:border-blue-500 w-full lg:w-64"
-        />
-
-       <div className="flex flex-col sm:flex-row gap-3 items-center w-full lg:w-auto">
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="bg-zinc-800 px-3 py-2 rounded-xl outline-none"
-          />
-
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="bg-zinc-800 px-3 py-2 rounded-xl outline-none"
-          />
-
-          <button
-            onClick={login}
-            className="bg-zinc-700 px-4 py-2 rounded-xl hover:bg-zinc-600"
-          >
-            Login
-          </button>
-
-          <button
-            onClick={signUp}
-            className="bg-blue-500 px-4 py-2 rounded-xl hover:bg-blue-600"
-          >
-            Sign Up
-          </button>
-        </div>
-
-       <div className="flex items-center gap-3">
-  <p className="text-zinc-400">
-    {currentUser?.email}
-  </p>
-
-  {currentUser && (
-    <button
-      onClick={logout}
-      className="bg-red-500 px-4 py-2 rounded-xl hover:bg-red-600"
-    >
-      Logout
-    </button>
-  )}
-</div>
-      </nav>
+</nav>
 
       {/* Hero */}
       <section className="text-center py-20 px-6">
