@@ -151,6 +151,19 @@ export default function ProductPage() {
         </p>
 
         {/* Comments */}
+        <textarea
+  placeholder="Write a comment..."
+  value={commentText}
+  onChange={(e) => setCommentText(e.target.value)}
+  className="w-full bg-zinc-800/80 border border-zinc-700 rounded-2xl p-4 outline-none focus:border-blue-500 min-h-[120px]"
+/>
+
+<button
+  onClick={addComment}
+  className="mt-4 bg-green-500 px-6 py-3 rounded-xl hover:bg-green-600"
+>
+  Post Comment
+</button>
         <div className="mt-8 flex flex-col gap-4">
   {comments.map((comment) => (
     <div
