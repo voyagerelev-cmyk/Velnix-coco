@@ -169,6 +169,18 @@ export default function ProductPage() {
           >
             Post Comment
           </button>
+          <div className="mt-8 flex flex-col gap-4">
+  {comments.map((comment) => (
+    <div
+      key={comment.id}
+      className="bg-zinc-800 border border-zinc-700 rounded-2xl p-4"
+    >
+      <p className="text-zinc-300">
+        {comment.content}
+      </p>
+    </div>
+  ))}
+</div>
 
           <div className="mt-8 flex flex-col gap-4">
             {comments.map((comment) => (
