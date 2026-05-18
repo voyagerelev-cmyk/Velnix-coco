@@ -93,12 +93,7 @@ export default function ProductPage() {
 
       const { data, error } = await supabase
         .from("products")
-        .select(`
-  *,
-  users:user_id (
-    email
-  )
-`)
+       .select("*")
         .eq("id", Number(id))
         .single();
 
