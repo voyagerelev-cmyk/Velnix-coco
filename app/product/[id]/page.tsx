@@ -92,7 +92,12 @@ export default function ProductPage() {
 
       const { data, error } = await supabase
         .from("products")
-        .select("*")
+        .select(`
+  *,
+  users:user_id (
+    email
+  )
+`)
         .eq("id", Number(id))
         .single();
 
@@ -172,7 +177,7 @@ export default function ProductPage() {
     >
       <div className="flex items-center justify-between mb-3">
         <p className="text-sm text-zinc-400">
-          Community Member
+         {comment.users?.email || "Anonymous"}
         </p>
 
         <p className="text-xs text-zinc-500">
