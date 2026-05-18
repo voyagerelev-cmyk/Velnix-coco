@@ -27,7 +27,10 @@ export default function Home() {
   const fetchProducts = async () => {
     const { data, error } = await supabase
       .from("products")
-      .select("*")
+      .select(`
+  *,
+  favorites(count)
+`)
       .order("created_at", { ascending: false });
 
     if (data) {
@@ -425,6 +428,19 @@ const categories = [
                 <p className="text-zinc-400 mt-2">
                   {product.price}
                 </p>
+                <p className="text-zinc-400 mt-2">
+  {product.price}
+</p>
+
+<div className="mt-3 flex items-center gap-2 text-pink-400">
+  <span className="animate-pulse text-lg">
+    ♥
+  </span>
+
+  <p className="text-sm font-medium">
+    {product.favorites?.length || 0} saved
+  </p>
+</div>
 
               <Link href={`/product/${product.id}`}>
   <button className="mt-4 w-full bg-blue-500 py-2 rounded-xl hover:bg-blue-600">
