@@ -42,6 +42,7 @@ export default function ProductPage() {
           product_id: product.id,
           user_id: currentUser.id,
           content: commentText,
+          email: currentUser.email,
         },
       ]);
 
@@ -177,7 +178,7 @@ export default function ProductPage() {
     >
       <div className="flex items-center justify-between mb-3">
         <p className="text-sm text-zinc-400">
-         {comment.users?.email || "Anonymous"}
+        {comment.email}
         </p>
 
         <p className="text-xs text-zinc-500">
