@@ -27,10 +27,7 @@ export default function Home() {
   const fetchProducts = async () => {
     const { data, error } = await supabase
       .from("products")
-     .select(`
-  *,
-  favorites(*)
-`)
+.select("*")
       .order("created_at", { ascending: false });
 
     if (data) {
