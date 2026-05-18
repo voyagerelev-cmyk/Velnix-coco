@@ -151,50 +151,28 @@ export default function ProductPage() {
         </p>
 
         {/* Comments */}
-        <div className="mt-10 border-t border-zinc-700 pt-6">
-          <h2 className="text-2xl font-bold mb-4">
-            Comments
-          </h2>
-
-          <textarea
-            placeholder="Write a comment..."
-            value={commentText}
-            onChange={(e) => setCommentText(e.target.value)}
-            className="w-full bg-zinc-800/80 border border-zinc-700 rounded-2xl p-4 outline-none focus:border-blue-500 min-h-[120px]"
-          />
-
-          <button
-            onClick={addComment}
-            className="mt-4 bg-green-500 px-6 py-3 rounded-xl hover:bg-green-600"
-          >
-            Post Comment
-          </button>
-          <div className="mt-8 flex flex-col gap-4">
+        <div className="mt-8 flex flex-col gap-4">
   {comments.map((comment) => (
     <div
       key={comment.id}
-      className="bg-zinc-800 border border-zinc-700 rounded-2xl p-4"
+      className="bg-zinc-800/70 backdrop-blur-md border border-zinc-700 rounded-3xl p-5 shadow-lg"
     >
-      <p className="text-zinc-300">
+      <div className="flex items-center justify-between mb-3">
+        <p className="text-sm text-zinc-400">
+          Community Member
+        </p>
+
+        <p className="text-xs text-zinc-500">
+          New Comment
+        </p>
+      </div>
+
+      <p className="text-zinc-200 text-lg leading-relaxed">
         {comment.content}
       </p>
     </div>
   ))}
 </div>
-
-          <div className="mt-8 flex flex-col gap-4">
-            {comments.map((comment) => (
-              <div
-                key={comment.id}
-                className="bg-zinc-800 border border-zinc-700 rounded-2xl p-4"
-              >
-                <p className="text-zinc-300">
-                  {comment.content}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* Message Seller */}
         <div className="mt-10 border-t border-zinc-700 pt-6">
