@@ -438,7 +438,7 @@ const categories = [
   </span>
 
   <p className="text-sm font-medium">
-    {product.favorites?.length || 0} saved
+   {product.favorites?.[0]?.count || 0} saved
   </p>
 </div>
 
