@@ -410,7 +410,13 @@ const categories = [
                 </h4>
 
               <div className="text-zinc-400 text-sm mt-1">
-  <p>Seller: {product.seller}</p>
+  <p>Seller:{" "}
+<Link
+  href={`/user/${product.user_id}`}
+  className="text-blue-400 hover:underline"
+>
+  {product.seller}
+</Link></p>
 
   <p className="text-blue-400 text-sm mt-1">
     {product.category}

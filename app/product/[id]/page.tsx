@@ -102,6 +102,12 @@ export default function ProductPage() {
       }
 
       setProduct(data);
+      await supabase
+  .from("products")
+  .update({
+    views: (data.views || 0) + 1,
+  })
+  .eq("id", data.id);
 
       fetchComments(data.id);
     };
@@ -150,7 +156,9 @@ export default function ProductPage() {
         <p className="text-zinc-300">
           {product.description}
         </p>
-
+<p className="text-zinc-500 mt-4">
+  👁️ {product.views || 0} views
+</p>
         {/* Comments */}
         <textarea
   placeholder="Write a comment..."
