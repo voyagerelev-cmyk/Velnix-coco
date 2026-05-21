@@ -175,6 +175,8 @@ export default function MessagesPage() {
           <div className="flex items-center gap-3 bg-zinc-900 rounded-2xl px-4 py-3 border border-zinc-800">
             <input
               type="text"
+              id="message-input"
+              name="message"
               placeholder="Message..."
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
