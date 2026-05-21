@@ -35,6 +35,9 @@ export default function MessagesPage() {
     }
 
     setMessages(data || []);
+    if (data && data.length > 0 && !selectedChat) {
+  setSelectedChat(data[0]);
+}
   };
 
   const sendReply = async () => {
