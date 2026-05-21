@@ -26,7 +26,7 @@ export default function MessagesPage() {
           name
         )
       `)
-      .eq("receiver_id", user.id)
+     .or(`receiver_id.eq.${user.id},sender_id.eq.${user.id}`)
       .order("created_at", { ascending: false });
 
     if (error) {
