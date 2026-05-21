@@ -197,6 +197,8 @@ const categories = [
   return (
     <main className="min-h-screen bg-gradient-to-b from-black via-zinc-900 to-zinc-950 text-white p-4 sm:p-6 lg:p-10">
       {/* Navbar */}
+      
+     
      <nav className="p-6 border-b border-zinc-800 space-y-4">
 
   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
@@ -204,6 +206,23 @@ const categories = [
     <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold">
       Qolox
     </h1>
+    <div className="flex items-center gap-3">
+
+  <Link
+    href="/favorites"
+    className="px-4 py-2 rounded-xl border border-zinc-800 bg-zinc-900 hover:bg-zinc-800 transition text-sm text-zinc-300"
+  >
+    Favorites
+  </Link>
+
+  <Link
+    href="/messages"
+    className="px-4 py-2 rounded-xl border border-zinc-800 bg-zinc-900 hover:bg-zinc-800 transition text-sm text-zinc-300"
+  >
+    Messages
+  </Link>
+
+</div>
 
 {!currentUser && (
     <div className="flex flex-col sm:flex-row gap-3 items-center w-full lg:w-auto">
