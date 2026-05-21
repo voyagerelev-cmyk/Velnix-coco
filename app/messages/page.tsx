@@ -15,6 +15,7 @@ export default function MessagesPage() {
     } = await supabase.auth.getUser();
 
     setCurrentUser(user);
+    console.log(user);
 
     if (!user) return;
 
@@ -28,6 +29,8 @@ export default function MessagesPage() {
       `)
      .or(`receiver_id.eq.${user.id},sender_id.eq.${user.id}`)
       .order("created_at", { ascending: false });
+      console.log(data);
+console.log(error);
 
     if (error) {
       console.log(error.message);
