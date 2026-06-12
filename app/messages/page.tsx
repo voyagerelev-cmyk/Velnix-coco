@@ -10,12 +10,15 @@ export default function MessagesPage() {
   const [currentUser, setCurrentUser] = useState<any>(null);
 
   const fetchMessages = async () => {
+    console.log("FETCH MESSAGES RUNNING");
     const {
       data: { user },
     } = await supabase.auth.getUser();
 
     if (!user) return;
     setCurrentUser(user);
+    console.log("USER ID:", user.id);
+    console.log("USER:", user);
 
     const { data, error } = await supabase
       .from("messages")
@@ -25,7 +28,7 @@ export default function MessagesPage() {
           name
         )
       `)
-      .or(`receiver_id.eq.${user.id},sender_id.eq.${user.id}`)
+     
       .order("created_at", { ascending: true }); // Changed to ascending so chat flows downwards naturally
 
     if (error) {
@@ -34,6 +37,7 @@ export default function MessagesPage() {
     }
 
     console.log("Fetched Data:", data);
+    console.log("Current User:", user);
     setMessages(data || []);
     
     if (data && data.length > 0 && !selectedChat) {
@@ -113,6 +117,9 @@ export default function MessagesPage() {
 
         <div className="flex-1 overflow-y-auto px-3 py-3">
           {/* Note: This maps all rows. Consider grouping items by conversation later */}
+          <p className="text-red-500 mb-4">
+  Messages Count: {messages.length}
+</p>
           {messages.map((msg) => (
             <button
               key={msg.id}

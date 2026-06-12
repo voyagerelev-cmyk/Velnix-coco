@@ -10,28 +10,48 @@ export default function AuthPage() {
   const [password, setPassword] = useState("");
 
   const signUp = async () => {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+    if (!email || !password) {
+      alert("Email and password are required.");
+      return;
+    }
 
-    if (error) {
-      alert(error.message);
-    } else {
-     router.push("/");
+    try {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      router.push("/");
+    } catch (error) {
+      console.error("Supabase sign-up error:", error);
+      alert(error instanceof Error ? error.message : "Signup failed. Check console.");
     }
   };
 
   const login = async () => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    if (!email || !password) {
+      alert("Email and password are required.");
+      return;
+    }
 
-    if (error) {
-      alert(error.message);
-    } else {
-    router.push("/");
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      router.push("/");
+    } catch (error) {
+      console.error("Supabase login error:", error);
+      alert(error instanceof Error ? error.message : "Login failed. Check console.");
     }
   };
 
